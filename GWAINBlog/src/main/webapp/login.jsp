@@ -12,29 +12,47 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Please enter login and password</h1>
-        <br>
+    <center>
+        <table style="padding-top: 20px;">
+            <%@include file="WEB-INF/jspf/header.jsp"%> 
+            <tr>
+                <td>
+                    Login
+                    <br>
+                    <form method="POST" action="j_security_check">
+                        <p>Username:<br>
+                            <input type="text" name="j_username"/> 
+                        </p>
+                        <p>Password:<br>
+                            <input type="password" name="j_password"/> 
+                        </p>
+                        <input type="submit" value="Submit"/> 
+                    </form>
+                </td>
+                <td>
+                    
+                    Signup
+                    <br>
+                    <form method="POST" action="SignupServlet">
+                        <p>Username <br>
+                            <input type="text" name="username"/>
+                        </p>
+                        <p>Email <br>
+                            <input type="text" name="email"/>
+                        </p>
+                        <p>Password <br>
+                            <input type="password" name="password1"/>
+                        </p>
+                        <p>Retype password <br>
+                            <input type="password" name="password2"/>
+                        </p>
+                        <input type="submit"/> 
 
-        <form method="POST" action="j_security_check">
-            <p>Username:<br>
-                <input type="text" name="j_username"/> 
-            </p>
-            <p>Password:<br>
-                <input type="password" name="j_password"/> 
-            </p>
-            <input type="submit" value="Submit"/> 
-        </form>
-        
-        
-        <br>
-        <br>
-        <br>
-        
-        <form name="loginForm" method="POST" action="j_security_check">
-            <p>User name: <input type="text" name="j_username" size="20"/></p>
-            <p>Password: <input type="password" size="20" name="j_password"/></p>
-            <p>  <input type="submit" value="Submit"/></p>
-        </form>     
-        
+                    </form>    
+                </td>
+            </tr>
+            <%@include file="WEB-INF/jspf/footer.jsp"%> 
+        </table>
+    </center>
     </body>
 </html>

@@ -12,12 +12,9 @@
         <title>JSP Page</title>
     </head>
     <body>
+    <center>
         <table>
-            <tr>
-                <td><a href="index.jsp">Main page</a></td>
-                <td><a href="add_new_article.jsp">Add Article</a></td>
-                <td><a href="LogoutServlet">Logout</a></td>
-            </tr>
+            <%@include file="WEB-INF/jspf/header.jsp"%> 
             <tr>
                 <td>
                     <table>
@@ -32,11 +29,8 @@
                     </table>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    (c) 2018  All rights reserved   
-                </td>
-            </tr>
+            <%@include file="WEB-INF/jspf/footer.jsp"%> 
         </table>
+    </center>
     </body>
 </html>
