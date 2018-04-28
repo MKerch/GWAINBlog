@@ -6,7 +6,7 @@
 package com.mycompany.gwainblog;
 
 import java.io.IOException;
-import javax.servlet.DispatcherType;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author kerch
  */
-@WebServlet(name = "AddArticaleServlet", urlPatterns = {"/AddArticaleServlet"})
-public class AddArticaleServlet extends HttpServlet {
+@WebServlet(name = "UpdateArticleServlet", urlPatterns = {"/UpdateArticleServlet"})
+public class UpdateArticleServlet extends HttpServlet {
 
     private ArticleDAO articleDAO;
 
@@ -28,17 +28,19 @@ public class AddArticaleServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String title = req.getParameter("title");
         String shortDescription = req.getParameter("shortDescription");
         String content = req.getParameter("content");
+        int id = Integer.parseInt(req.getParameter("id"));
         String author = req.getUserPrincipal().getName();
         Article article = new Article();
         article.setAuthor(author);
         article.setContent(content);
         article.setShortDescription(shortDescription);
         article.setTitle(title);
-        articleDAO.add(article);
+        article.setId(id);
+        articleDAO.update(id, article);
         resp.sendRedirect("main.jsp");
     }
 

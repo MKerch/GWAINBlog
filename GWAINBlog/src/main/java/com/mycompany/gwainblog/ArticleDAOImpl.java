@@ -54,20 +54,38 @@ public class ArticleDAOImpl implements ArticleDAO {
     }
 
     @Override
-    public void delete(Article article) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(int articleId) {
+        try(Connection c = getConnection()){
+            PreparedStatement ps = c.prepareStatement("DELETE FROM article where id=?");
+            ps.setInt(1, articleId);
+            ps.execute();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
-    public void update(Article oldArticle, Article newArticle) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(int articleId, Article newArticle){
+         try(Connection c = getConnection()){
+            PreparedStatement ps = c.prepareStatement("update article SET title=?,content=?, short_description=?, date_created=? WHERE id=?");
+            ps.setString(1, newArticle.getTitle());
+            ps.setString(2, newArticle.getContent());
+            ps.setString(3, newArticle.getShortDescription());
+            long currentTime = System.currentTimeMillis();
+            ps.setDate(4, new Date(currentTime));
+            ps.setInt(5, articleId);
+            ps.execute();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
     public List<Article> getAllArticlesByAuthor(String author) {
         try (Connection c = getConnection()) {
             PreparedStatement ps = c.prepareStatement(
-                    "SELECT * FROM gwain_blog.article WHERE user_id=(SELECT id FROM gwain_blog.users WHERE name=?)");
+                    "SELECT * FROM gwain_blog.article WHERE user_id=(SELECT id FROM gwain_blog.users WHERE name=?) ORDER BY date_created DESC LIMIT 10");
+            ps.setString(1, author);
             ResultSet rs = ps.executeQuery();
             List<Article> list = new ArrayList();
             while (rs.next()) {
@@ -78,6 +96,7 @@ public class ArticleDAOImpl implements ArticleDAO {
                 article.setAmountOfView(rs.getInt("amount_of_view"));
                 article.setAmountOfVouting(rs.getInt("amount_of_vouting"));
                 article.setDate(rs.getDate("date_created"));
+                article.setId(rs.getInt("id"));
                 list.add(article);
             }
             return list;
@@ -98,7 +117,7 @@ public class ArticleDAOImpl implements ArticleDAO {
     public List<Article> getLatestArticales() {
         try (Connection c = getConnection()) {
             PreparedStatement ps = c.prepareStatement(
-                    "SELECT * FROM gwain_blog.article ORDER BY date_created LIMIT 5");
+                    "SELECT * FROM gwain_blog.article ORDER BY date_created DESC LIMIT 5 ");
             ResultSet rs = ps.executeQuery();
             List<Article> list = new ArrayList();
             while (rs.next()) {
@@ -121,7 +140,7 @@ public class ArticleDAOImpl implements ArticleDAO {
     public List<Article> getMostRating() {
         try (Connection c = getConnection()) {
             PreparedStatement ps = c.prepareStatement(
-                    "SELECT * FROM gwain_blog.article ORDER BY AMOUNT_OF_VOUTING LIMIT 5");
+                    "SELECT * FROM gwain_blog.article ORDER BY AMOUNT_OF_VOUTING DESC LIMIT 5");
             ResultSet rs = ps.executeQuery();
             List<Article> list = new ArrayList();
             while (rs.next()) {
@@ -144,7 +163,7 @@ public class ArticleDAOImpl implements ArticleDAO {
     public List<Article> getMostWatched() {
         try (Connection c = getConnection()) {
             PreparedStatement ps = c.prepareStatement(
-                    "SELECT * FROM gwain_blog.article ORDER BY amount_of_view LIMIT 5");
+                    "SELECT * FROM gwain_blog.article ORDER BY amount_of_view DESC LIMIT 5");
             ResultSet rs = ps.executeQuery();
             List<Article> list = new ArrayList();
             while (rs.next()) {
@@ -158,6 +177,27 @@ public class ArticleDAOImpl implements ArticleDAO {
                 list.add(article);
             }
             return list;
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public Article getArticleById(int id) {
+        try (Connection c = getConnection()) {
+            PreparedStatement ps = c.prepareStatement("SELECT * FROM article where id=?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            Article article = new Article();
+            while (rs.next()) {
+                article.setTitle(rs.getString("title"));
+                article.setContent(rs.getString("content"));
+                article.setShortDescription(rs.getString("short_description"));
+                article.setAmountOfView(rs.getInt("amount_of_view"));
+                article.setAmountOfVouting(rs.getInt("amount_of_vouting"));
+                article.setDate(rs.getDate("date_created"));
+            }
+            return article;
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }

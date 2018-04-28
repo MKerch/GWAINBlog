@@ -32,3 +32,7 @@ body {
     padding: 50px;
     border: 20px solid #e8def3;
 }
+
+table, th, td {
+   border: 1px solid black;
+}

@@ -13,6 +13,7 @@ import java.util.Date;
  */
 public class Article {
 
+    private int id;
     private String title;
     private String shortDescription;
     private String content;
@@ -76,5 +77,15 @@ public class Article {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
 
 }
