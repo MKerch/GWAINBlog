@@ -17,7 +17,9 @@
 
     </head>
     <body>
-        <%String user = request.getUserPrincipal().getName();%>
+        <%String user = request.getUserPrincipal().getName();
+        ArticleDAO articleDAO = new ArticleDAOImpl();%>
+
     <center>
         <table>
             <tr>
@@ -31,23 +33,44 @@
                         <tr>                                        
                         </tr>
                         <tr>
-                            <td width="25%" valign="top" align="left">
-                                Hello, <%=user%>!!!<br><br>
-                                <form action="search.jsp" method="get">
-                                    <p><input type="text" size="=40" name="search">
-                                        <input type="submit" value="search"></p>
-                                </form>
-                                <p><a href="all-user-articles.jsp">All publications of <%=user%>: </a><br></p>
-                                <p>   <a href="addNews.jsp">Add news</a><BR></p>
-                                <p> <a href="GraphicServlet">Statistics</a></p>
-                            </td>
+                            <%@include  file="WEB-INF/jspf/left.jsp" %>
                         </tr>
                     </table>
-
                 </td>
                 <td width="75%" >
 
-                    <%if (request.getParameter("id") == null) {%>
+                    <%if (request.getParameter("search") != null) {
+                     List<Article> searchResultList = articleDAO.getSearcheResult(request.getParameter("search"));
+                    %>
+                    
+                    <table>
+                        <%for (int i = 0; i < searchResultList.size();i++) {%>                        
+                        <tr>
+                            <td>
+                                <br>
+                                <a href="main.jsp?id=<%=searchResultList.get(i).getId()%>"><%=searchResultList.get(i).getTitle()%></a>
+                                <br>
+                                <%=searchResultList.get(i).getShortDescription()%>
+                                <br>
+                                Views: <%=searchResultList.get(i).getAmountOfView()%>  Rating: <%=searchResultList.get(i).getAmountOfVouting()%> Date: <%=searchResultList.get(i).getDate()%>
+                            </td>
+                            <% if(i+1<searchResultList.size()){ %>
+                            <td>
+                                <br>
+                                <a href="main.jsp?id=<%=searchResultList.get(i+1).getId()%>"><%=searchResultList.get(i+1).getTitle()%></a>
+                                <br>
+                                <%=searchResultList.get(i+1).getShortDescription()%>
+                                <br>
+                                Views: <%=searchResultList.get(i+1).getAmountOfView()%>  Rating: <%=searchResultList.get(i).getAmountOfVouting()%> Date: <%=searchResultList.get(i+1).getDate()%>
+                            </td>
+                            <% i++;}%>
+                        </tr>
+                        <%}%>
+                    </table>
+                    
+                    
+
+                    <%} else if (request.getParameter("id") == null) {%>
                     <form action="AddArticaleServlet" method="post">
                         <p>
                             Title<br>
@@ -63,7 +86,7 @@
                             <input type="submit" name="submitNews" value="GO!!!">
                     </form>
                     <%} else {
-                        ArticleDAO articleDAO = new ArticleDAOImpl();
+                        
                         int id = Integer.parseInt(request.getParameter("id"));
                         Article article = articleDAO.getArticleById(id);
                     %>
@@ -87,7 +110,7 @@
                             <input type="hidden" name="id" value="<%=id%>"/>
                             <input type="submit" name="submitNews" value="Update">
                     </form>
-                            
+
                     <form action="DeleteArticleServlet" method="post">
                         <input type="hidden" name="id" value="<%=id%>"/>
                         <input type="submit" name="submitNews" value="Delete">

@@ -27,23 +27,14 @@
                 <%@include file="WEB-INF/jspf/header.jsp"%> 
             </tr>
         </table>
-        <table >            
+        <table>            
             <tr>
                 <td>
                     <table width="100%" border="1" align="center" cellpadding="10" >
                         <tr>                                        
                         </tr>
                         <tr>
-                            <td width="25%" valign="top" align="left">
-                                Hello, <%=user%>!!!<br><br>
-                                <form action="search.jsp" method="get">
-                                    <p><input type="text" size="=40" name="search">
-                                        <input type="submit" value="search"></p>
-                                </form>
-                                <p><a href="all-user-articles.jsp">All publications of <%=user%>: </a><br></p>
-                                <p>   <a href="addNews.jsp">Add news</a><BR></p>
-                                <p> <a href="GraphicServlet">Statistics</a></p>
-                            </td>
+                             <%@include  file="WEB-INF/jspf/left.jsp" %>
                         </tr>
                     </table>
 

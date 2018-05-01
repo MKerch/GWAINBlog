@@ -28,4 +28,8 @@ public interface ArticleDAO {
     public List<Article> getMostRating();
 
     public List<Article> getMostWatched();
+    
+    public List<Article> getSearcheResult(String searchKey);
+    
+    public void vote(int articleId, String user);
 }

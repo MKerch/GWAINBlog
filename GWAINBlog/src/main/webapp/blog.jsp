@@ -39,7 +39,7 @@
             <tr>
                 <td>
                     <br>
-                    <%=dateArticle.getTitle()%>
+                    <a href="content-view.jsp?id=<%=dateArticle.getId()%>"><%=dateArticle.getTitle()%></a>
                     <br>
                     <%=dateArticle.getShortDescription()%>
                     <br>
@@ -53,7 +53,7 @@
                 </td>
                 <td>
                     <br>
-                    <%=ratingArticle.getTitle()%>
+                    <a href="content-view.jsp?id=<%=ratingArticle.getId()%>"><%=ratingArticle.getTitle()%></a>
                     <br>
                     <%=ratingArticle.getShortDescription()%>
                     <br>
@@ -67,7 +67,7 @@
                 </td>
                 <td>
                     <br>
-                    <%=watchedArticle.getTitle()%>
+                    <a href="content-view.jsp?id=<%=watchedArticle.getId()%>"><%=watchedArticle.getTitle()%></a>
                     <br>
                     <%=watchedArticle.getShortDescription()%>
                     <br>
