@@ -13,7 +13,7 @@
             <input type="submit" value="search">
         </p>
     </form>
-    <p><a href="all-user-articles.jsp">All publications of <%=user%>: </a><br></p>
-    <p><a href="main.jsp">Add news</a><BR></p>
-    <p><a href="GraphicServlet">Statistics</a></p>
+    <p><a href="all-user-articles.jsp">All articles of <%=user%>: </a><br></p>
+    <p><a href="main.jsp">Add new article</a><BR></p>
+    <p><a href="main.jsp?statistics=true">Statistics</a></p>
 </td>

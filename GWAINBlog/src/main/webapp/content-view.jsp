@@ -19,9 +19,6 @@
     <body>
         <%
             ArticleDAO articleDAO = new ArticleDAOImpl();
-            List<Article> latestArticales = articleDAO.getLatestArticales();
-            List<Article> mostRating = articleDAO.getMostRating();
-            List<Article> mostWatched = articleDAO.getMostWatched();
         %>
     <center>
         <table style="padding-top: 20px;">

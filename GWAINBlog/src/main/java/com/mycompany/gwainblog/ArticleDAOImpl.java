@@ -28,7 +28,6 @@ public class ArticleDAOImpl implements ArticleDAO {
     static {
         try {
             DriverManager.registerDriver(new Driver());//Class.forName(className); or like this
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -67,7 +66,8 @@ public class ArticleDAOImpl implements ArticleDAO {
     @Override
     public void update(int articleId, Article newArticle) {
         try (Connection c = getConnection()) {
-            PreparedStatement ps = c.prepareStatement("update article SET title=?,content=?, short_description=?, date_created=? WHERE id=?");
+            PreparedStatement ps = c.prepareStatement("update article "
+                    + "SET title=?,content=?, short_description=?, date_created=? WHERE id=?");
             ps.setString(1, newArticle.getTitle());
             ps.setString(2, newArticle.getContent());
             ps.setString(3, newArticle.getShortDescription());
@@ -106,10 +106,6 @@ public class ArticleDAOImpl implements ArticleDAO {
     }
 
     private Connection getConnection() throws Exception {
-        // InitialContext ctx = new InitialContext();
-        //  DataSource ds = (DataSource) ctx.lookup("gwainDS");
-        //  return ds.getConnection();
-        //JNDI
         return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/gwain_blog?useLegacyDatetimeCode=false&serverTimezone=America/New_York", "root", "111111");
     }
 

@@ -5,7 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<im
 <!DOCTYPE html>
 <tr>
     <td><input type="image" src="images/logo.png" onclick="location.href = 'blog.jsp'"></td>

@@ -38,8 +38,9 @@
                     </table>
                 </td>
                 <td width="75%" >
-
-                    <%if (request.getParameter("search") != null) {
+                    <%if (request.getParameter("statistics") != null) {%>
+                    <%@include  file="WEB-INF/jspf/statistics.jsp" %>
+                    <%} else if (request.getParameter("search") != null) {
                      List<Article> searchResultList = articleDAO.getSearcheResult(request.getParameter("search"));
                     %>
                     
@@ -83,7 +84,7 @@
                             Content<br>
                             <textarea cols="55" rows="15" name="content"></textarea></p>
                         <p>
-                            <input type="submit" name="submitNews" value="GO!!!">
+                            <input type="submit" name="submit" value="ADD">
                     </form>
                     <%} else {
                         
