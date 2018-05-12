@@ -20,6 +20,8 @@ public interface ArticleDAO {
     public void update(int articleId, Article newArticle);
     
     public Article getArticleById(int id);
+    
+    public Article getArticleByIdAndUpdateView(int id);
 
     public List<Article> getAllArticlesByAuthor(String author);
 

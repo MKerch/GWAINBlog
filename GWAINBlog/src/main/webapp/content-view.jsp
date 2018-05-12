@@ -25,7 +25,7 @@
             <%@include file="WEB-INF/jspf/header.jsp"%> 
             <%
                 int id = Integer.parseInt(request.getParameter("id"));
-                Article article = articleDAO.getArticleById(id);
+                Article article = articleDAO.getArticleByIdAndUpdateView(id);
             %> 
             <tr>
                 <td colspan="3">                                      

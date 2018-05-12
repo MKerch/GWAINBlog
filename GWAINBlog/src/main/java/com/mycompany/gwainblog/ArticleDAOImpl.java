@@ -291,4 +291,33 @@ public class ArticleDAOImpl implements ArticleDAO {
         }
     }
 
+    @Override
+    public Article getArticleByIdAndUpdateView(int id) {        
+        try(Connection c = getConnection()){
+            Article article = null;
+            c.setAutoCommit(false);
+            PreparedStatement ps=c.prepareStatement("UPDATE gwain_blog.article SET amount_of_view = amount_of_view+1 WHERE id=?");
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            ps=c.prepareStatement("SELECT article.*, users.name FROM article JOIN users ON (users.id=article.user_id and article.id=?)");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                article = new Article();
+                article.setTitle(rs.getString("title"));
+                article.setContent(rs.getString("content"));
+                article.setShortDescription(rs.getString("short_description"));
+                article.setAmountOfView(rs.getInt("amount_of_view"));
+                article.setAmountOfVouting(rs.getInt("amount_of_vouting"));
+                article.setDate(rs.getDate("date_created"));
+                article.setId(rs.getInt("id"));
+                article.setAuthor(rs.getString("name"));
+            }
+            c.commit();
+            return article;
+        }catch(Exception ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
 }
