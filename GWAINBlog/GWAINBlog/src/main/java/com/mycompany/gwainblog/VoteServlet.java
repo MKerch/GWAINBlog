@@ -6,6 +6,7 @@
 package com.mycompany.gwainblog;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,13 +17,23 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author kerch
  */
-@WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
-public class LogoutServlet extends HttpServlet {
+@WebServlet(name = "VoteServlet", urlPatterns = {"/VoteServlet"})
+public class VoteServlet extends HttpServlet {
+    private ArticleDAO articleDAO;
+    
+    @Override
+    public void init(){
+        articleDAO = new ArticleDAOImpl();
+    }
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getSession().invalidate();
-        resp.sendRedirect("index.html");
+        int id = Integer.parseInt(req.getParameter("articleId"));
+        String user = req.getUserPrincipal().getName();
+        articleDAO.vote(id, user);
+        resp.sendRedirect("main.jsp");
     }
+
     
+
 }

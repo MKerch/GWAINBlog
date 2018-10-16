@@ -1,6 +1,6 @@
 <%-- 
-    Document   : signup
-    Created on : Apr 16, 2018, 11:26:36 AM
+    Document   : login.jsp
+    Created on : Apr 17, 2018, 1:47:31 PM
     Author     : kerch
 --%>
 
@@ -11,16 +11,28 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-
     <body>
-        <table>
-            <tr>
-                <td><a href="index.jsp">Main page</a></td>
-                <td><a href="AddArticaleServlet">New Article</a></td>
-                <td><a href="LoginServlet">Login</a></td>
-            </tr>
+    <center>
+        <table style="padding-top: 20px;">
+            <%@include file="WEB-INF/jspf/header.jsp"%> 
             <tr>
                 <td>
+                    Login
+                    <br>
+                    <form method="POST" action="j_security_check">
+                        <p>Username:<br>
+                            <input type="text" name="j_username"/> 
+                        </p>
+                        <p>Password:<br>
+                            <input type="password" name="j_password"/> 
+                        </p>
+                        <input type="submit" value="Submit"/> 
+                    </form>
+                </td>
+                <td>
+                    
+                    Signup
+                    <br>
                     <form method="POST" action="SignupServlet">
                         <p>Username <br>
                             <input type="text" name="username"/>
@@ -36,15 +48,11 @@
                         </p>
                         <input type="submit"/> 
 
-                    </form>                    
-
+                    </form>    
                 </td>
-
             </tr>
-            <tr>
-                <td>
-                    (c) 2018  All rights reserved   
-                </td></tr>
+            <%@include file="WEB-INF/jspf/footer.jsp"%> 
         </table>
+    </center>
     </body>
 </html>

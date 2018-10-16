@@ -15,9 +15,13 @@ public interface ArticleDAO {
 
     public void add(Article article);
 
-    public void delete(Article article);
+    public void delete(int articleId);
 
-    public void update(Article oldArticle, Article newArticle);
+    public void update(int articleId, Article newArticle);
+    
+    public Article getArticleById(int id);
+    
+    public Article getArticleByIdAndUpdateView(int id);
 
     public List<Article> getAllArticlesByAuthor(String author);
 
@@ -26,4 +30,8 @@ public interface ArticleDAO {
     public List<Article> getMostRating();
 
     public List<Article> getMostWatched();
+    
+    public List<Article> getSearcheResult(String searchKey);
+    
+    public void vote(int articleId, String user);
 }

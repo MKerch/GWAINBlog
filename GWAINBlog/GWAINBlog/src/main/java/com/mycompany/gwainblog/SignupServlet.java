@@ -42,8 +42,5 @@ public class SignupServlet extends HttpServlet {
         resp.sendRedirect("index.jsp");
     }
 
-    /*private Connection getConnection() throws SQLException {
-        //return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/gwain_blog?useLegacyDatetimeCode=false&serverTimezone=America/New_York", "root", "111111");
-    }*/
-
+    
 }

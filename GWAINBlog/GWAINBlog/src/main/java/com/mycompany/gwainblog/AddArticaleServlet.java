@@ -12,22 +12,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  *
  * @author kerch
  */
 @WebServlet(name = "AddArticaleServlet", urlPatterns = {"/AddArticaleServlet"})
 public class AddArticaleServlet extends HttpServlet {
+
     private ArticleDAO articleDAO;
-    
+
     @Override
-    public void init(){
+    public void init() {
         articleDAO = new ArticleDAOImpl();
     }
-    
+
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {    
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String title = req.getParameter("title");
         String shortDescription = req.getParameter("shortDescription");
         String content = req.getParameter("content");
@@ -39,5 +39,6 @@ public class AddArticaleServlet extends HttpServlet {
         article.setTitle(title);
         articleDAO.add(article);
         resp.sendRedirect("main.jsp");
-    }   
+    }
+
 }
